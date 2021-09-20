@@ -4,13 +4,16 @@ the file ../../data/diagnoseData.json from the service
 despite the file existing. That is a bug in the editor, 
 and goes away when the editor is restarted.
 */
+//Otetaan käyttöön id-generaattori
+import { v4 as uuidv4 } from 'uuid';
+
 //Diagnoosidata käyttöön
 import diagnoseData from '../../data/diagnoses.json';
 //Potilasdata käyttöön
 import patientData from '../../data/patients.json';
 //Tyypitykset käyttöön "types.ts" -filestä
 //import { Diagnose, Patient } from '../types';
-import { Diagnose, PatientDetails, Patient } from '../types';
+import { Diagnose, PatientDetails, Patient, NewPatient } from '../types';
 
 //Diagnoosit "DiagnoseEntry" tyyppisinä ja Arrayssa
 const diagnoses: Array<Diagnose> = diagnoseData;
@@ -29,15 +32,26 @@ const getDiagnoseEntries = (): Array<Diagnose> => {
 const getPatientEntries = (): Array<PatientDetails> => {
   return patients.map(({ id, name, dateOfBirth, gender, occupation }) => ({
     id,
-    name, 
-    dateOfBirth, 
-    gender, 
+    name,
+    dateOfBirth,
+    gender,
     occupation
   }));
 };
-//console.log('Patients', patients);
-//return patients;
-//};
+
+//Uuden potilaan luominen. Tuodaan sisään "NewPatient" ja palautetaan "Patient"
+//Ero näillä on että "NewPatient" ei sisällä ID:tä ja se luodaan tässä funktiossa.
+const addPatient = (entry: NewPatient): Patient => {
+  const newPatient = {
+    //Potilaalle ID-numero lisättynä request body "...entry":yyn
+    id: uuidv4(),
+    ...entry
+  };
+  console.log('Tuleeko addPatienttiin');
+  //Viedään patients array:yyn
+  patients.push(newPatient);
+  return newPatient;
+};
 
 const addEntry = () => {
   return null;
@@ -46,5 +60,6 @@ const addEntry = () => {
 export default {
   getDiagnoseEntries,
   getPatientEntries,
-  addEntry
+  addEntry,
+  addPatient
 };
