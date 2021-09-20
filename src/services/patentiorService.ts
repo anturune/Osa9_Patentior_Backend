@@ -24,7 +24,8 @@ const getDiagnoseEntries = (): Array<Diagnose> => {
   //console.log('DIAGNOSES', diagnoses);
   return diagnoses;
 };
-//Funktio, joka palauttaa kaikki potilaat
+//Funktio, joka palauttaa kaikki potilaat ilman "ssn"-propertya. 
+//Siksi "PatientDetails" "types.ts" -filessä ja "map" -funktiota käytetään.
 const getPatientEntries = (): Array<PatientDetails> => {
   return patients.map(({ id, name, dateOfBirth, gender, occupation }) => ({
     id,
