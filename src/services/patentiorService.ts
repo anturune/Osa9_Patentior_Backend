@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 //Diagnoosidata käyttöön
 import diagnoseData from '../../data/diagnoses.json';
 //Potilasdata käyttöön
-import patientData from '../../data/patients.json';
+import patientData from '../../data/patients';
 //Tyypitykset käyttöön "types.ts" -filestä
 //import { Diagnose, Patient } from '../types';
 import { Diagnose, PatientDetails, Patient, NewPatient } from '../types';

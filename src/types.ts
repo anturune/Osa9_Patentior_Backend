@@ -9,7 +9,7 @@ export interface Patient {
     name: string,
     dateOfBirth: string,
     ssn: string,
-    gender: string,
+    gender: Gender,
     occupation: string
 }
 //Jos halutaan palauttaa vain halutut kentät, on kaksi vaihtoehtoa
@@ -20,4 +20,14 @@ export type PatientDetails = Omit<Patient, 'ssn'>;
 
 //Uuden potilaan luonti. Jätetään id pois, jotta voidaan luoda uusi
 export type NewPatient = Omit<Patient, 'id'>;
+
+//Käytetään enum:a, koska nämä ovat muuttumattomia arvoja
+//ja voidaan hödyntää sellaisenaan
+//HUOM! Enum:n käyttö vaatii datan jalostamista eikä voida
+//enää ottaa dataa vastaan ".json" -muotoisena
+export enum Gender {
+    Male = 'male',
+    Female = 'female',
+    Other = 'other'
+}
 
