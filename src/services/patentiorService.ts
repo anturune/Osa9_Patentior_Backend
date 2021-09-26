@@ -20,8 +20,6 @@ const diagnoses: Array<Diagnose> = diagnoseData;
 //Potilaat "PatientEntry" tyyppisinä ja Arrayssa
 const patients: Array<Patient> = patientData;
 
-//const patients: Array<Patient> = patientData;
-
 //Funktio, joka palauttaa kaikki diagnoosit
 const getDiagnoseEntries = (): Array<Diagnose> => {
   //console.log('DIAGNOSES', diagnoses);
@@ -29,6 +27,8 @@ const getDiagnoseEntries = (): Array<Diagnose> => {
 };
 //Funktio, joka palauttaa kaikki potilaat ilman "ssn"-propertya. 
 //Siksi "PatientDetails" "types.ts" -filessä ja "map" -funktiota käytetään.
+//Vaikka "types.ts" -filessä on oma "PatientDetails" -tyyppi, niin silti
+//joudutaan map:lla filteröimään ei halutut kentät pois.
 const getPatientEntries = (): Array<PatientDetails> => {
   return patients.map(({ id, name, dateOfBirth, gender, occupation }) => ({
     id,
@@ -37,6 +37,15 @@ const getPatientEntries = (): Array<PatientDetails> => {
     gender,
     occupation
   }));
+};
+//Tässä vois hyödyntää haussa "getPatientEntries", koska "getPatientEntries"
+//palauttama Array ei sisällä "ssn" -kenttää, koska sitä ei haluta palauttaa
+//HUOM! täss voidaan käyttää vaihtoehtona "undefined" niille hauille, joita ei ole
+//olemassa. Esim. jos ID on väärin kirjoitettu, palautetaan vastauksena "undefined"
+const findPatientById = (id:string): Patient | undefined=> {
+  const patientById = patients.find(patient => patient.id === id);
+  console.log('Patient detail', patientById);
+  return patientById;
 };
 
 //Uuden potilaan luominen. Tuodaan sisään "NewPatient" ja palautetaan "Patient"
@@ -47,7 +56,7 @@ const addPatient = (entry: NewPatient): Patient => {
     id: uuidv4(),
     ...entry
   };
-  console.log('Tuleeko addPatienttiin');
+  console.log('Tuleeko addPatienttiin',entry);
   //Viedään patients array:yyn
   patients.push(newPatient);
   return newPatient;
@@ -61,5 +70,6 @@ export default {
   getDiagnoseEntries,
   getPatientEntries,
   addEntry,
-  addPatient
+  addPatient,
+  findPatientById
 };

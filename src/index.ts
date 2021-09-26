@@ -21,8 +21,10 @@ app.get('/api/ping', (_req, res) => {
 //jossa määritelty router diagnooseille
 app.use('/api/diagnoses', diagnoseRouter);
 //Ohjataa selaimessa annettu polku "patients.ts" -fileen
-//jossa määritelty router diagnooseille
+//jossa määritelty router potilaille
 app.use('/api/patients', patientRouter);
+//Ohjaus routerille, jossa määritelty id-haulla toimiva router
+app.use('/api/patients/:id', patientRouter);
 
 const PORT = 3001;
 app.listen(PORT, () => {

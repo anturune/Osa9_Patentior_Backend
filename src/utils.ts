@@ -1,4 +1,4 @@
-import { NewPatient, Gender } from './types';
+import { NewPatient, Gender, Entry } from './types';
 
 //String tyyppien tarkastus
 const isString = (property: unknown): property is string => {
@@ -25,17 +25,30 @@ const parseGender = (gender: unknown): Gender => {
     }
     return gender;
 };
+//Tarkastetaan, onko Array<Entry>
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const isEntry = (param: any): param is Array<Entry> => {
+    return param instanceof Array;
+};
+//Entryn parseri
+const parseEntry = (entry: unknown): Array<Entry> => {
+    if (!entry || !isEntry(entry)) {
+        throw new Error('Incorrect or missing gender: ' + entry);
+    }
+    return entry;
+};
 
-type Fields = { name: unknown, dateOfBirth: unknown, ssn: unknown, gender: unknown, occupation: unknown };
+type Fields = { name: unknown, dateOfBirth: unknown, ssn: unknown, gender: unknown, occupation: unknown, entries: unknown };
 
-const toNewPatientEntry = ({ name, dateOfBirth, ssn, gender, occupation }: Fields): NewPatient => {
+const toNewPatientEntry = ({ name, dateOfBirth, ssn, gender, occupation, entries }: Fields): NewPatient => {
     //Uuden potilaan propertyjen tarkastus, ennen uuden potilaan luomista
     const newEntry: NewPatient = {
         name: parseStringProperty(name),
         dateOfBirth: parseStringProperty(dateOfBirth),
         ssn: parseStringProperty(ssn),
         gender: parseGender(gender),
-        occupation: parseStringProperty(occupation)
+        occupation: parseStringProperty(occupation),
+        entries: parseEntry(entries)
     };
 
     return newEntry;

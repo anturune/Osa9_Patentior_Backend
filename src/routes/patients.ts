@@ -9,12 +9,22 @@ const router = express.Router();
 router.get('/', (_req, res) => {
     res.send(patentiorService.getPatientEntries());
 });
+
+router.get('/:id', (req, res) => {
+    console.log('TULEEKO TÄNNE', req.params);
+    const patient = patentiorService.findPatientById(req.params.id);
+
+    if (patient) {
+        res.send(patient);
+    } else {
+        res.sendStatus(404);
+    }
+});
 //Uuden potilaan luomisen routeri
 router.post('/', (req, res) => {
-
     try {
+        console.log('Tuliko postiin', req.body);
         const newPatient = toNewPatientEntry(req.body);
-
         const addedPatient = patentiorService.addPatient(newPatient);
         res.json(addedPatient);
     } catch (e) {
