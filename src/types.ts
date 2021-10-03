@@ -14,7 +14,7 @@ export interface Patient {
     ssn: string,
     gender: Gender,
     occupation: string,
-    entries?: Entry[]
+    entries: Entry[]
 }
 //Jos halutaan palauttaa vain halutut kentät, on kaksi vaihtoehtoa
 //"Omit"-jolle kerrotaan mikä field jää pois tai "Pick", että mitkä

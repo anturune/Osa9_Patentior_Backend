@@ -23,11 +23,12 @@ router.get('/:id', (req, res) => {
 //Uuden potilaan luomisen routeri
 router.post('/', (req, res) => {
     try {
-        console.log('Tuliko postiin', req.body);
+        console.log('Tuliko postiin');
         const newPatient = toNewPatientEntry(req.body);
         const addedPatient = patentiorService.addPatient(newPatient);
         res.json(addedPatient);
     } catch (e) {
+        console.log('tuliko erroriin');
         console.log(res.status(400));
         //res.status(400).send(e.message);
     }
