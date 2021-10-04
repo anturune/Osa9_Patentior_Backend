@@ -13,15 +13,15 @@ import diagnoseData from '../../data/diagnoses.json';
 import patientData from '../../data/patients';
 //Tyypitykset käyttöön "types.ts" -filestä
 //import { Diagnose, Patient } from '../types';
-import { Diagnose, PatientDetails, Patient, NewPatient } from '../types';
+import { Diagnosis, PatientDetails, Patient, NewPatient } from '../types';
 
 //Diagnoosit "DiagnoseEntry" tyyppisinä ja Arrayssa
-const diagnoses: Array<Diagnose> = diagnoseData;
+const diagnoses: Array<Diagnosis> = diagnoseData;
 //Potilaat "PatientEntry" tyyppisinä ja Arrayssa
 const patients: Array<Patient> = patientData;
 
 //Funktio, joka palauttaa kaikki diagnoosit
-const getDiagnoseEntries = (): Array<Diagnose> => {
+const getDiagnoseEntries = (): Array<Diagnosis> => {
   //console.log('DIAGNOSES', diagnoses);
   return diagnoses;
 };
