@@ -11,7 +11,15 @@ interface BaseEntry {
     specialist: string;
     diagnosisCodes?: Array<Diagnosis['code']>;
 }
-
+/*
+interface BaseEntry {
+    id: string;
+    description: string;
+    date: string;
+    specialist: string;
+    diagnosisCodes?: Array<Diagnosis>;
+}
+*/
 //--------------------------------------
 export enum HealthCheckRating {
     "Healthy" = 0,

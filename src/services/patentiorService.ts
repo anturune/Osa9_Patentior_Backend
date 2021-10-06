@@ -8,7 +8,7 @@ and goes away when the editor is restarted.
 import { v4 as uuidv4 } from 'uuid';
 
 //Diagnoosidata käyttöön
-import diagnoseData from '../../data/diagnoses.json';
+import diagnoseData from '../../data/diagnoses';
 //Potilasdata käyttöön
 import patientData from '../../data/patients';
 //Tyypitykset käyttöön "types.ts" -filestä
