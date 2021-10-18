@@ -26,6 +26,9 @@ app.use('/api/patients', patientRouter);
 //Ohjaus routerille, jossa määritelty id-haulla toimiva router
 app.use('/api/patients/:id', patientRouter);
 
+//Ohjaus routerille, jossa määritelty id-haulla toimiva router
+app.use('/api/patients/:id/entries', patientRouter);
+
 const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);

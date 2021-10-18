@@ -13,7 +13,7 @@ import diagnoseData from '../../data/diagnoses';
 import patientData from '../../data/patients';
 //Tyypitykset käyttöön "types.ts" -filestä
 //import { Diagnose, Patient } from '../types';
-import { Diagnosis, PatientDetails, Patient, NewPatient } from '../types';
+import { Diagnosis, PatientDetails, Patient, NewPatient, EntryWithoutId,Entry } from '../types';
 
 //Diagnoosit "DiagnoseEntry" tyyppisinä ja Arrayssa
 const diagnoses: Array<Diagnosis> = diagnoseData;
@@ -42,9 +42,9 @@ const getPatientEntries = (): Array<PatientDetails> => {
 //palauttama Array ei sisällä "ssn" -kenttää, koska sitä ei haluta palauttaa
 //HUOM! täss voidaan käyttää vaihtoehtona "undefined" niille hauille, joita ei ole
 //olemassa. Esim. jos ID on väärin kirjoitettu, palautetaan vastauksena "undefined"
-const findPatientById = (id:string): Patient | undefined=> {
+const findPatientById = (id: string): Patient | undefined => {
   const patientById = patients.find(patient => patient.id === id);
-  console.log('Patient detail', patientById);
+  console.log('2) tuliko patient findbyid servicelle', patientById);
   return patientById;
 };
 
@@ -54,18 +54,40 @@ const addPatient = (entry: NewPatient): Patient => {
   const newPatient = {
     //Potilaalle ID-numero lisättynä request body "...entry":yyn
     id: uuidv4(),
-    ...entry
+    ...entry,
+    entries: []
   };
-  console.log('Tuleeko addPatienttiin',entry);
+  console.log('Tuleeko addPatienttiin', entry);
   //Viedään patients array:yyn
   patients.push(newPatient);
   return newPatient;
 };
 
+const addEntry = (entry: EntryWithoutId, patient: Patient | undefined): Entry | undefined => {
+  //const patientById = patients.find(patient => patient.id === id);
+
+  const newEntry = {
+    id: uuidv4(),
+    ...entry
+  };
+  if (patient != undefined) {
+    patient.entries.push(newEntry);
+  }
+
+
+
+  console.log('NEW ENTRY', newEntry);
+  console.log('PATIENTIN ENTRYT ADD ENTRYSSA', patient?.entries);
+  console.log('PATIENTTI ADD ENTRYSSA', patient);
+
+  return newEntry;
+};
+/*
 const addEntry = () => {
+
   return null;
 };
-
+*/
 export default {
   getDiagnoseEntries,
   getPatientEntries,
